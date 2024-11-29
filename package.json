@@ -4,8 +4,8 @@
   "description": "This is a proxy server for requesting recommended movies/series from tastedive",
   "main": "index.js",
   "scripts": {
-    "start": "node api/index",
-    "dev": "nodemon api/index"
+    "start": "node index",
+    "dev": "nodemon index"
   },
   "keywords": [
     "recommendation",
