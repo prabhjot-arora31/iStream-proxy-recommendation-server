@@ -4,15 +4,17 @@ const app = express();
 const axios = require("axios");
 const cors = require("cors");
 const port = process.env.PORT || 9001;
-app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API is working fine....");
 });
-app.get("/similar/:query/:type", async (req, res) => {
+app.post("/similar/:query/:type", async (req, res) => {
+  console.log("secret is:", req.body.secret);
   if (req.body.secret == "nb&%*4#GtyuiEWQA09%@!") {
     if (req.params.query && req.params.query.trim().length > 0) {
+      
       try {
         if (req.params.type.trim() == "movie") {
           const { data } = await axios.get(
