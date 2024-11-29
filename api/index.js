@@ -10,19 +10,24 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("API is working fine....");
 });
-app.get("/api/similar/:query/:type", async (req, res) => {
+app.get("/similar/:query/:type", async (req, res) => {
   if (req.body.secret == "nb&%*4#GtyuiEWQA09%@!") {
     if (req.params.query && req.params.query.trim().length > 0) {
-      if (req.params.type.trim() == "movie") {
-        const { data } = await axios.get(
-          `https://tastedive.com/api/similar?q=${req.params.query.trim()}&type=movie&limit=20&k=1040827-iStreamW-E8459B8B`
-        );
-        return res.send(data);
-      } else {
-        const { data } = await axios.get(
-          `https://tastedive.com/api/similar?q=${req.params.query.trim()}&type=show&limit=20&k=1040827-iStreamW-E8459B8B`
-        );
-        return res.send(data);
+      try {
+        if (req.params.type.trim() == "movie") {
+          const { data } = await axios.get(
+            `https://tastedive.com/api/similar?q=${req.params.query.trim()}&type=movie&limit=20&k=1040827-iStreamW-E8459B8B`
+          );
+          return res.send(data);
+        } else {
+          const { data } = await axios.get(
+            `https://tastedive.com/api/similar?q=${req.params.query.trim()}&type=show&limit=20&k=1040827-iStreamW-E8459B8B`
+          );
+          return res.send(data);
+        }
+      } catch (err) {
+        console.log("Error occured", err);
+        return res.send(JSON.stringify(err.message));
       }
     }
     return res.send("hey");
